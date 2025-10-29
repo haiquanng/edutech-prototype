@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dữ Liệu Học Sinh - Quản Lý Lớp Học</title>
+  <link rel="stylesheet" href="/class/style.css">
+</head>
+<body>
+  <div class="header">
+    <button class="back-btn" onclick="window.location.href='/dashboard.html'">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+    </button>
+    <div class="header-content">
+      <h1>Quản Lý Lớp Học</h1>
+      <p>Công cụ toàn diện giúp quản lý lớp học, theo dõi sự tham gia và phân tích dữ liệu học sinh</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="tabs">
+      <div class="tab" onclick="window.location.href='random.html'">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 3L3 7l4 4m10 10l4-4-4-4M3 7h11a7 7 0 0 1 7 7v4"/>
+        </svg>
+        Random Học Sinh
+      </div>
+      <div class="tab" onclick="window.location.href='attendance.html'">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 6v6l4 2"/>
+        </svg>
+        Giao Diện Lớp Học
+      </div>
+      <div class="tab active" onclick="window.location.href='data.html'">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 7h16M4 12h16M4 17h10"/>
+        </svg>
+        Dữ Liệu Học Sinh
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <div class="form-group" style="margin: 0; min-width: 150px;">
+            <select id="classSelectData" class="form-select">
+              <option value="">Chọn lớp</option>
+              <option value="10A1">Lớp 10A1</option>
+              <option value="10A2">Lớp 10A2</option>
+              <option value="11A1">Lớp 11A1</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin: 0;">
+            <input type="text" id="searchInput" class="form-select" placeholder="Tìm kiếm theo tên, mã học sinh, email...">
+          </div>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <div class="form-group" style="margin: 0;">
+            <select id="filterScore" class="form-select">
+              <option value="all">Điểm trung bình</option>
+              <option value="high">Trên 9.0</option>
+              <option value="medium">7.0 - 9.0</option>
+              <option value="low">Dưới 7.0</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin: 0;">
+            <select id="sortBy" class="form-select">
+              <option value="name">Tất cả</option>
+              <option value="score-desc">Điểm cao → thấp</option>
+              <option value="score-asc">Điểm thấp → cao</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 2px solid var(--border);">
+        <div style="font-size: 14px; color: var(--text-secondary);">
+          Hiển thị <strong id="displayCount">5</strong> / <strong id="totalCount">5</strong> học sinh
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-secondary" onclick="exportExcel()">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Xuất Excel
+          </button>
+          <button class="btn btn-primary" onclick="sendBulkEmail()">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            Gửi thông báo
+          </button>
+        </div>
+      </div>
+
+      <div class="table-wrapper">
+        <table id="studentTable">
+          <thead>
+            <tr>
+              <th>
+                <input type="checkbox" class="checkbox" id="selectAll" onchange="toggleSelectAll()">
+              </th>
+              <th>Họ tên</th>
+              <th>Mã HS</th>
+              <th>Lớp</th>
+              <th>Email/Phụ huynh</th>
+              <th>Điểm TB</th>
+              <th>Lượt phát biểu</th>
+              <th>Ghi chú</th>
+              <th>Chi tiết</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <tr>
+              <td colspan="9" style="text-align: center; padding: 40px;">
+                <div class="empty-text">Vui lòng chọn lớp học để xem dữ liệu</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar for Student Detail -->
+  <div id="studentSidebar" class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-title">Thông tin chi tiết học sinh</div>
+      <button class="close-btn" onclick="closeSidebar()">×</button>
+    </div>
+    <div class="sidebar-content">
+      <div id="sidebarContent"></div>
+    </div>
+  </div>
+  <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
+
+  <script>
+    // Mock data
+    const studentsData = {
+      '10A1': [
+        { 
+          id: 'HS005', 
+          name: 'Hoàng Văn E', 
+          class: '10A1', 
+          email: 'parent_e@example.com', 
+          score: 9.0, 
+          hands: 12,
+          notes: 'Học sinh cơ đền, tộc điệu',
+          attendance: 95
+        },
+        { 
+          id: 'HS003', 
+          name: 'Lê Văn C', 
+          class: '10A1', 
+          email: 'parent_c@example.com', 
+          score: 9.5, 
+          hands: 20,
+          notes: 'Học sinh xuất sắc, chí khí',
+          attendance: 98
+        },
+        { 
+          id: 'HS001', 
+          name: 'Nguyễn Văn A', 
+          class: '10A1', 
+          email: 'parent_a@example.com', 
+          score: 8.5, 
+          hands: 15,
+          notes: 'Học sinh tích cực, tham gia',
+          attendance: 92
+        },
+        { 
+          id: 'HS004', 
+          name: 'Phạm Thị D', 
+          class: '10A1', 
+          email: 'parent_d@example.com', 
+          score: 6.5, 
+          hands: 5,
+          notes: 'Cần hỗ trợ thêm, vẫn cần cố gắng',
+          attendance: 85
+        },
+        { 
+          id: 'HS002', 
+          name: 'Trần Thị B', 
+          class: '10A1', 
+          email: 'parent_b@example.com', 
+          score: 7.0, 
+          hands: 8,
+          notes: 'Cần khuyến khích phát biểu',
+          attendance: 88
+        },
+      ]
+    };
+
+    let selectedStudents = new Set();
+    let currentClass = '';
+
+    document.getElementById('classSelectData').addEventListener('change', function() {
+      currentClass = this.value;
+      renderTable();
+    });
+
+    document.getElementById('searchInput').addEventListener('input', renderTable);
+    document.getElementById('filterScore').addEventListener('change', renderTable);
+    document.getElementById('sortBy').addEventListener('change', renderTable);
+
+    function renderTable() {
+      if (!currentClass) {
+        document.getElementById('tableBody').innerHTML = `
+          <tr>
+            <td colspan="9" style="text-align: center; padding: 40px;">
+              <div class="empty-text">Vui lòng chọn lớp học để xem dữ liệu</div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      let students = studentsData[currentClass] || [];
+      
+      // Search filter
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      if (searchTerm) {
+        students = students.filter(s => 
+          s.name.toLowerCase().includes(searchTerm) ||
+          s.id.toLowerCase().includes(searchTerm) ||
+          s.email.toLowerCase().includes(searchTerm)
+        );
+      }
+
+      // Score filter
+      const scoreFilter = document.getElementById('filterScore').value;
+      if (scoreFilter !== 'all') {
+        students = students.filter(s => {
+          if (scoreFilter === 'high') return s.score >= 9.0;
+          if (scoreFilter === 'medium') return s.score >= 7.0 && s.score < 9.0;
+          if (scoreFilter === 'low') return s.score < 7.0;
+          return true;
+        });
+      }
+
+      // Sort
+      const sortBy = document.getElementById('sortBy').value;
+      if (sortBy === 'score-desc') {
+        students.sort((a, b) => b.score - a.score);
+      } else if (sortBy === 'score-asc') {
+        students.sort((a, b) => a.score - b.score);
+      }
+
+      // Update counts
+      document.getElementById('displayCount').textContent = students.length;
+      document.getElementById('totalCount').textContent = studentsData[currentClass]?.length || 0;
+
+      // Render table
+      const tbody = document.getElementById('tableBody');
+      if (students.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="9" style="text-align: center; padding: 40px;">
+              <div class="empty-text">Không tìm thấy học sinh phù hợp</div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = students.map(student => `
+        <tr>
+          <td>
+            <input type="checkbox" class="checkbox" value="${student.id}" 
+              ${selectedStudents.has(student.id) ? 'checked' : ''} 
+              onchange="toggleStudent('${student.id}')">
+          </td>
+          <td>
+            <div class="student-cell">
+              <div class="student-avatar-sm">${student.name.charAt(0)}</div>
+              <span>${student.name}</span>
+            </div>
+          </td>
+          <td>${student.id}</td>
+          <td>${student.class}</td>
+          <td>${student.email}</td>
+          <td><span class="score">${student.score.toFixed(1)}</span></td>
+          <td>${student.hands}</td>
+          <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${student.notes}</td>
+          <td>
+            <a class="btn-link" onclick="showStudentDetail('${student.id}')">Chi tiết</a>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function toggleSelectAll() {
+      const checked = document.getElementById('selectAll').checked;
+      const students = studentsData[currentClass] || [];
+      
+      if (checked) {
+        students.forEach(s => selectedStudents.add(s.id));
+      } else {
+        selectedStudents.clear();
+      }
+      renderTable();
+    }
+
+    function toggleStudent(id) {
+      if (selectedStudents.has(id)) {
+        selectedStudents.delete(id);
+      } else {
+        selectedStudents.add(id);
+      }
+    }
+
+    function showStudentDetail(studentId) {
+      const student = studentsData[currentClass].find(s => s.id === studentId);
+      if (!student) return;
+
+      const content = `
+        <div class="student-info">
+          <div class="student-avatar">${student.name.charAt(0)}</div>
+          <div class="student-name">${student.name}</div>
+          <div style="text-align: center; margin-bottom: 20px;">
+            <div class="info-row">${student.id} | ${student.class}</div>
+            <div class="info-row">${student.email}</div>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-label">Điểm trung bình</div>
+          <div class="stat-value">${student.score.toFixed(1)}</div>
+        </div>
+        
+        <div class="stat-card" style="margin-top: 16px;">
+          <div class="stat-label">Số lượt phát biểu</div>
+          <div class="stat-value">${student.hands}</div>
+        </div>
+        
+        <div class="stat-card" style="margin-top: 16px;">
+          <div class="stat-label">Tỷ lệ tham gia</div>
+          <div class="stat-value">${student.attendance}%</div>
+        </div>
+        
+        <div style="margin-top: 20px; padding: 16px; background: var(--bg-gray); border-radius: 8px;">
+          <div style="font-size: 13px; font-weight: 600; margin-bottom: 8px; color: var(--text-secondary);">Ghi chú</div>
+          <div style="font-size: 14px;">${student.notes}</div>
+        </div>
+        
+        <button class="btn btn-primary btn-full" style="margin-top: 20px;" onclick="editStudent('${student.id}')">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+            <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+          </svg>
+          Chỉnh sửa thông tin
+        </button>
+      `;
+      
+      document.getElementById('sidebarContent').innerHTML = content;
+      document.getElementById('studentSidebar').classList.add('show');
+      document.getElementById('overlay').classList.add('show');
+    }
+
+    function closeSidebar() {
+      document.getElementById('studentSidebar').classList.remove('show');
+      document.getElementById('overlay').classList.remove('show');
+    }
+
+    function editStudent(id) {
+      alert('Tính năng chỉnh sửa đang được phát triển!');
+    }
+
+    function exportExcel() {
+      if (!currentClass) {
+        alert('Vui lòng chọn lớp học trước!');
+        return;
+      }
+      alert('Đang xuất dữ liệu ra file Excel...');
+    }
+
+    function sendBulkEmail() {
+      if (selectedStudents.size === 0) {
+        alert('Vui lòng chọn ít nhất một học sinh!');
+        return;
+      }
+      alert(`Đang gửi email đến ${selectedStudents.size} học sinh...`);
+    }
+  </script>
+</body>
+</html>

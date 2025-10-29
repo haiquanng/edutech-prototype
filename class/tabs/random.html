@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Học Sinh - Quản Lý Lớp Học</title>
+  <link rel="stylesheet" href="/class/style.css">
+</head>
+<body>
+  <div class="header">
+    <button class="back-btn" onclick="window.location.href='/dashboard.html'">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+    </button>
+    <div class="header-content">
+      <h1>Quản Lý Lớp Học</h1>
+      <p>Công cụ toàn diện giúp quản lý lớp học, theo dõi sự tham gia và phân tích dữ liệu học sinh</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="tabs">
+      <div class="tab active" onclick="window.location.href='random.html'">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 3L3 7l4 4m10 10l4-4-4-4M3 7h11a7 7 0 0 1 7 7v4"/>
+        </svg>
+        Random Học Sinh
+      </div>
+      <div class="tab" onclick="window.location.href='attendance.html'">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 6v6l4 2"/>
+        </svg>
+        Giao Diện Lớp Học
+      </div>
+      <div class="tab" onclick="window.location.href='data.html'">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 7h16M4 12h16M4 17h10"/>
+        </svg>
+        Dữ Liệu Học Sinh
+      </div>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h2 class="card-title">Chọn Ngẫu Nhiên Học Sinh</h2>
+        
+        <div class="form-group">
+          <label class="form-label">Chọn lớp</label>
+          <select id="classSelect" class="form-select">
+            <option value="">Chọn lớp</option>
+            <option value="10A1">Lớp 10A1</option>
+            <option value="10A2">Lớp 10A2</option>
+            <option value="11A1">Lớp 11A1</option>
+            <option value="12A1">Lớp 12A1</option>
+          </select>
+        </div>
+
+        <div class="checkbox-wrapper">
+          <input type="checkbox" id="onlyActive" class="checkbox" checked>
+          <label for="onlyActive" class="checkbox-label">Chỉ học sinh có mặt</label>
+        </div>
+
+        <div class="slider-group">
+          <label class="slider-label">Kích thước nhóm: <span id="groupSizeValue">1</span> học sinh</label>
+          <div class="slider-wrapper">
+            <span class="slider-value">1</span>
+            <input type="range" id="groupSize" class="slider" min="1" max="5" value="1">
+            <span class="slider-value">5</span>
+          </div>
+          <div class="slider-numbers">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+          </div>
+        </div>
+
+        <button id="randomBtn" class="btn btn-primary btn-full mt-4" disabled>
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>
+          </svg>
+          Random 1 học sinh
+        </button>
+
+        <div class="info-row mt-4">
+          Số học sinh hiện có: <strong id="studentCount">0 (đang có mặt)</strong>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <h2 class="card-title">Học sinh được chọn</h2>
+          <div id="selectedStudents">
+            <div class="empty-state">
+              <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 3L3 7l4 4m10 10l4-4-4-4M3 7h11a7 7 0 0 1 7 7v4"/>
+              </svg>
+              <div class="empty-text">Chưa có kết quả</div>
+              <div class="empty-subtext">Chọn một lớp và nhấn nút random để bắt đầu.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-4">
+          <h2 class="card-title">Lịch sử random gần đây</h2>
+          <div id="historyList">
+            <div class="empty-text">Chưa có lịch sử random.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Mock data
+    const classData = {
+      '10A1': [
+        { id: 'HS005', name: 'Hoàng Văn E', present: true },
+        { id: 'HS003', name: 'Lê Văn C', present: true },
+        { id: 'HS001', name: 'Nguyễn Văn A', present: true },
+        { id: 'HS004', name: 'Phạm Thị D', present: false },
+        { id: 'HS002', name: 'Trần Thị B', present: true },
+      ],
+      '10A2': [
+        { id: 'HS006', name: 'Đỗ Thị F', present: true },
+        { id: 'HS007', name: 'Võ Văn G', present: true },
+      ],
+    };
+
+    let history = [];
+
+    const classSelect = document.getElementById('classSelect');
+    const onlyActiveCheckbox = document.getElementById('onlyActive');
+    const groupSizeSlider = document.getElementById('groupSize');
+    const groupSizeValue = document.getElementById('groupSizeValue');
+    const randomBtn = document.getElementById('randomBtn');
+    const studentCount = document.getElementById('studentCount');
+    const selectedStudents = document.getElementById('selectedStudents');
+    const historyList = document.getElementById('historyList');
+
+    // Update group size display
+    groupSizeSlider.addEventListener('input', function() {
+      groupSizeValue.textContent = this.value;
+      randomBtn.innerHTML = `
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>
+        </svg>
+        Random ${this.value} học sinh
+      `;
+      updateStudentCount();
+    });
+
+    // Update student count
+    function updateStudentCount() {
+      const selectedClass = classSelect.value;
+      if (!selectedClass || !classData[selectedClass]) {
+        studentCount.textContent = '0 (đang có mặt)';
+        randomBtn.disabled = true;
+        return;
+      }
+
+      const students = classData[selectedClass];
+      const activeStudents = students.filter(s => s.present);
+      const count = onlyActiveCheckbox.checked ? activeStudents.length : students.length;
+      
+      studentCount.textContent = `${count} (đang có mặt)`;
+      randomBtn.disabled = count === 0;
+    }
+
+    classSelect.addEventListener('change', updateStudentCount);
+    onlyActiveCheckbox.addEventListener('change', updateStudentCount);
+
+    // Random students
+    randomBtn.addEventListener('click', function() {
+      const selectedClass = classSelect.value;
+      const students = classData[selectedClass];
+      const groupSize = parseInt(groupSizeSlider.value);
+      
+      let availableStudents = onlyActiveCheckbox.checked 
+        ? students.filter(s => s.present)
+        : students;
+
+      // Shuffle and select
+      const shuffled = [...availableStudents].sort(() => Math.random() - 0.5);
+      const selected = shuffled.slice(0, Math.min(groupSize, shuffled.length));
+
+      // Display selected students
+      selectedStudents.innerHTML = selected.map((student, index) => `
+        <div class="student-info" style="padding: 20px 0; ${index > 0 ? 'border-top: 1px solid var(--border);' : ''}">
+          <div class="student-avatar">${student.name.charAt(0)}</div>
+          <div class="student-name">${student.name}</div>
+          <button class="btn btn-primary" onclick="randomAgain()">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>
+            </svg>
+            Random lại
+          </button>
+        </div>
+      `).join('');
+
+      // Add to history
+      const timestamp = new Date().toLocaleString('vi-VN');
+      history.unshift({
+        class: selectedClass,
+        students: selected,
+        time: timestamp
+      });
+
+      if (history.length > 5) history.pop();
+      updateHistory();
+    });
+
+    function randomAgain() {
+      randomBtn.click();
+    }
+
+    function updateHistory() {
+      if (history.length === 0) {
+        historyList.innerHTML = '<div class="empty-text">Chưa có lịch sử random.</div>';
+        return;
+      }
+
+      historyList.innerHTML = history.map(item => `
+        <div style="padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 13px;">
+          <div style="font-weight: 600; margin-bottom: 4px;">${item.class} - ${item.students.length} học sinh</div>
+          <div style="color: var(--text-secondary);">${item.time}</div>
+        </div>
+      `).join('');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giao Diện Lớp Học - Quản Lý Lớp Học</title>
+  <link rel="stylesheet" href="/class/style.css">
+</head>
+<body>
+  <div class="header">
+    <button class="back-btn" onclick="window.location.href='/dashboard.html'">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+    </button>
+    <div class="header-content">
+      <h1>Quản Lý Lớp Học</h1>
+      <p>Công cụ toàn diện giúp quản lý lớp học, theo dõi sự tham gia và phân tích dữ liệu học sinh</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="tabs">
+      <div class="tab" onclick="window.location.href='random.html'">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 3L3 7l4 4m10 10l4-4-4-4M3 7h11a7 7 0 0 1 7 7v4"/>
+        </svg>
+        Random Học Sinh
+      </div>
+      <div class="tab active" onclick="window.location.href='attendance.html'">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 6v6l4 2"/>
+        </svg>
+        Giao Diện Lớp Học
+      </div>
+      <div class="tab" onclick="window.location.href='data.html'">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 7h16M4 12h16M4 17h10"/>
+        </svg>
+        Dữ Liệu Học Sinh
+      </div>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+          <div style="display: flex; gap: 12px;">
+            <div class="form-group" style="margin: 0; min-width: 150px;">
+              <select id="classSelectAttn" class="form-select">
+                <option value="10A1">Lớp 10A1</option>
+                <option value="10A2">Lớp 10A2</option>
+                <option value="11A1">Lớp 11A1</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin: 0; min-width: 150px;">
+              <select id="subjectSelect" class="form-select">
+                <option value="toan">Toán Học</option>
+                <option value="van">Ngữ Văn</option>
+                <option value="anh">Tiếng Anh</option>
+              </select>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-primary" onclick="startSession()">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
+              Bắt đầu tiết học
+            </button>
+          </div>
+        </div>
+
+        <div id="attendanceView">
+          <div class="empty-state" style="padding: 80px 20px;">
+            <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <div class="empty-text">Chưa có kết quả</div>
+            <div class="empty-subtext">Vui lòng chọn lớp học để hiển thị sơ đồ chỗ ngồi</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <h2 class="card-title">Thông kê lớp học</h2>
+          <div class="stat-card" style="text-align: center; margin-bottom: 16px;">
+            <div class="stat-label">Top học sinh tích cực</div>
+            <div class="empty-subtext">Chưa có dữ liệu</div>
+          </div>
+          <div class="stat-card" style="text-align: center; margin-bottom: 16px;">
+            <div class="stat-label">Tổng lượt giơ tay</div>
+            <div class="stat-value" id="totalHands">0</div>
+          </div>
+          <div class="stat-card" style="text-align: center;">
+            <div class="stat-label">Phân bố theo hàng</div>
+            <div class="empty-subtext">Chưa có dữ liệu</div>
+          </div>
+        </div>
+
+        <div class="card mt-4">
+          <h2 class="card-title">Thao tác</h2>
+          <button class="btn btn-secondary btn-full" style="margin-bottom: 12px;">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 11l3 3L22 4"/>
+              <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+            </svg>
+            Ghi chú
+          </button>
+          <button class="btn btn-secondary btn-full" style="margin-bottom: 12px;" onclick="showStats()">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="20" x2="18" y2="10"/>
+              <line x1="12" y1="20" x2="12" y2="4"/>
+              <line x1="6" y1="20" x2="6" y2="14"/>
+            </svg>
+            Thống kê
+          </button>
+          <button class="btn btn-secondary btn-full" onclick="exportData()">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Xuất báo cáo
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Session -->
+  <div id="sessionModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">Kết thúc tiết học</div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Tên tiết học</label>
+          <input type="text" id="sessionName" class="form-select" placeholder="Nhập tên tiết học" value="Toán Học - 10A1">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mã nội dung học</label>
+          <input type="text" id="sessionCode" class="form-select" placeholder="VD: 12-18" value="12-18">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeSessionModal()">Hủy bỏ</button>
+        <button class="btn btn-primary" onclick="saveSession()">Xác nhận</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar for Student Detail -->
+  <div id="studentSidebar" class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-title">Thông tin chi tiết học sinh</div>
+      <button class="close-btn" onclick="closeSidebar()">×</button>
+    </div>
+    <div class="sidebar-content">
+      <div id="sidebarContent"></div>
+    </div>
+  </div>
+  <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
+
+  <script>
+    let sessionActive = false;
+    let attendance = {};
+
+    // Mock attendance data
+    const students = {
+      '10A1': [
+        { id: 'HS001', name: 'Nguyễn Văn A', row: 1, col: 1, hands: 15, present: true },
+        { id: 'HS002', name: 'Trần Thị B', row: 1, col: 2, hands: 20, present: true },
+        { id: 'HS003', name: 'Lê Văn C', row: 1, col: 3, hands: 8, present: false },
+        { id: 'HS004', name: 'Phạm Thị D', row: 2, col: 1, hands: 5, present: true },
+        { id: 'HS005', name: 'Hoàng Văn E', row: 2, col: 2, hands: 12, present: true },
+        { id: 'HS006', name: 'Đỗ Thị F', row: 2, col: 3, hands: 18, present: true },
+        { id: 'HS007', name: 'Võ Văn G', row: 3, col: 1, hands: 9, present: true },
+        { id: 'HS008', name: 'Bùi Thị H', row: 3, col: 2, hands: 14, present: true },
+      ]
+    };
+
+    function startSession() {
+      sessionActive = true;
+      const selectedClass = document.getElementById('classSelectAttn').value;
+      renderSeatingChart(selectedClass);
+    }
+
+    function renderSeatingChart(className) {
+      const classStudents = students[className] || [];
+      const maxRow = Math.max(...classStudents.map(s => s.row));
+      const maxCol = Math.max(...classStudents.map(s => s.col));
+
+      let html = '<div class="attendance-header"><div class="attendance-title">📚 ' + className + ' - Toán Học</div><div class="week-info">Tuần 32-38</div></div>';
+      html += '<div style="background: white; padding: 20px; border-radius: 12px;">';
+      
+      for (let row = 1; row <= maxRow; row++) {
+        html += '<div style="display: flex; gap: 12px; margin-bottom: 12px; align-items: center;">';
+        html += '<div style="font-size: 13px; font-weight: 500; color: var(--text-secondary); width: 60px;">Hàng ' + row + '</div>';
+        
+        for (let col = 1; col <= maxCol; col++) {
+          const student = classStudents.find(s => s.row === row && s.col === col);
+          if (student) {
+            const presentClass = student.present ? 'present' : 'absent';
+            html += `
+              <div class="attendance-cell ${presentClass}" onclick="showStudentDetail('${student.id}', '${className}')" style="flex: 1; cursor: pointer;">
+                <div class="cell-icon">${student.present ? '✓' : '✗'}</div>
+                <div class="cell-count">${student.hands}</div>
+                <div class="cell-label">${student.name.split(' ').slice(-1)}</div>
+              </div>
+            `;
+          } else {
+            html += '<div style="flex: 1; aspect-ratio: 1; background: var(--bg-gray); border-radius: 6px;"></div>';
+          }
+        }
+        html += '</div>';
+      }
+      
+      html += '</div>';
+      document.getElementById('attendanceView').innerHTML = html;
+      updateStats(classStudents);
+    }
+
+    function updateStats(students) {
+      const totalHands = students.reduce((sum, s) => sum + s.hands, 0);
+      document.getElementById('totalHands').textContent = totalHands;
+    }
+
+    function showStudentDetail(studentId, className) {
+      const student = students[className].find(s => s.id === studentId);
+      if (!student) return;
+
+      const content = `
+        <div class="student-info">
+          <div class="student-avatar">${student.name.charAt(0)}</div>
+          <div class="student-name">${student.name}</div>
+          <div style="text-align: center; margin-bottom: 20px;">
+            <div class="info-row">${student.id} | ${className}</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Trạng thái</div>
+          <div style="margin-top: 8px; padding: 8px; background: ${student.present ? 'var(--primary-light)' : '#FEE2E2'}; color: ${student.present ? 'var(--primary)' : '#EF4444'}; border-radius: 6px; font-weight: 600; text-align: center;">
+            ${student.present ? 'Có mặt' : 'Vắng mặt'}
+          </div>
+        </div>
+        <div class="stat-card" style="margin-top: 16px;">
+          <div class="stat-label">Số lần giơ tay</div>
+          <div class="stat-value">${student.hands}</div>
+        </div>
+        <div class="stat-card" style="margin-top: 16px;">
+          <div class="stat-label">Vị trí</div>
+          <div style="margin-top: 8px; font-weight: 600;">Hàng ${student.row} - Cột ${student.col}</div>
+        </div>
+      `;
+      
+      document.getElementById('sidebarContent').innerHTML = content;
+      document.getElementById('studentSidebar').classList.add('show');
+      document.getElementById('overlay').classList.add('show');
+    }
+
+    function closeSidebar() {
+      document.getElementById('studentSidebar').classList.remove('show');
+      document.getElementById('overlay').classList.remove('show');
+    }
+
+    function closeSessionModal() {
+      document.getElementById('sessionModal').classList.remove('show');
+    }
+
+    function saveSession() {
+      alert('Đã lưu thông tin tiết học!');
+      closeSessionModal();
+    }
+
+    function showStats() {
+      alert('Tính năng thống kê đang được phát triển!');
+    }
+
+    function exportData() {
+      alert('Đang xuất báo cáo...');
+    }
+
+    // Auto load default class
+    window.addEventListener('load', function() {
+      startSession();
+    });
+  </script>
+</body>
+</html>
