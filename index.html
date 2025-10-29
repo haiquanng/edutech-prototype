@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduTech AI - Tạo Đánh giá Chấm tự động</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <rect width="32" height="32" rx="8" fill="#2563EB"/>
+                        <path d="M16 8L22 12V20L16 24L10 20V12L16 8Z" fill="white"/>
+                    </svg>
+                    <span class="logo-text">EduTech AI</span>
+                </div>
+                <nav class="nav">
+                    <a href="#features">Tính năng</a>
+                    <a href="#pricing">Bảng giá</a>
+                    <a href="#testimonials">Đánh giá</a>
+                    <a href="#faq">FAQ</a>
+                </nav>
+                <div class="header-actions">
+                    <button class="btn-secondary">Đăng nhập</button>
+                    <button class="btn-primary">
+                        <a href="http://127.0.0.1:5500/dashboard.html">Dùng thử ngay</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        Tạo - Đánh giá - Chấm tự động,<br>
+                        <span class="highlight">tất cả trong 1 nơi</span>
+                    </h1>
+                    <p class="hero-description">
+                        Giảm 70% thời gian chuẩn bị bài - Không cần kỹ thuật.
+                    </p>
+                    <div class="hero-actions">
+                        <button class="btn-primary btn-lg">Bắt đầu miễn phí</button>
+                        <button class="btn-secondary btn-lg">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm-2 14.5v-9l6 4.5-6 4.5z"/>
+                            </svg>
+                            Xem hướng dẫn 3 phút
+                        </button>
+                    </div>
+                    <div class="hero-features">
+                        <div class="feature-item">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <circle cx="10" cy="10" r="10" fill="#10B981"/>
+                                <path d="M6 10l3 3 5-6" stroke="white" stroke-width="2"/>
+                            </svg>
+                            <span>Không cần thẻ tín dụng</span>
+                        </div>
+                        <div class="feature-item">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <circle cx="10" cy="10" r="10" fill="#10B981"/>
+                                <path d="M6 10l3 3 5-6" stroke="white" stroke-width="2"/>
+                            </svg>
+                            <span>Hủy bất cứ lúc nào</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=400&fit=crop" alt="Classroom">
+                    <div class="time-badge">
+                        <span class="time">5-10</span>
+                        <span class="label">giờ tiết kiệm/tuần</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Bảng tính năng có sẵn hỗ trợ công việc</h2>
+            <p class="section-subtitle">Hệ thống tích hợp các tính năng hữu ích</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <rect width="40" height="40" rx="8" fill="#EEF2FF"/>
+                            <path d="M20 12v16M12 20h16" stroke="#2563EB" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Tạo quiz online</h3>
+                    <p>Tạo bài kiểm tra trực tuyến nhanh chóng và dễ dàng</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <rect width="40" height="40" rx="8" fill="#FEF3C7"/>
+                            <path d="M14 20l4 4 8-8" stroke="#F59E0B" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Chấm điểm tự động</h3>
+                    <p>Tự động chấm và phân tích kết quả học sinh</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <rect width="40" height="40" rx="8" fill="#DBEAFE"/>
+                            <rect x="14" y="14" width="12" height="12" rx="2" stroke="#2563EB" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Quản lý lớp học</h3>
+                    <p>Quản lý học sinh, bài tập và tiến độ học tập</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <rect width="40" height="40" rx="8" fill="#FCE7F3"/>
+                            <path d="M14 24l4-8 4 6 4-10" stroke="#EC4899" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+                    <h3>Thống kê chi tiết</h3>
+                    <p>Báo cáo và phân tích hiệu suất học tập</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <rect width="40" height="40" rx="8" fill="#D1FAE5"/>
+                            <circle cx="20" cy="20" r="6" stroke="#10B981" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Ngân hàng câu hỏi</h3>
+                    <p>Thư viện câu hỏi phong phú theo từng môn học</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <rect width="40" height="40" rx="8" fill="#E0E7FF"/>
+                            <path d="M16 18v8M20 14v12M24 18v8" stroke="#6366F1" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Xuất báo cáo</h3>
+                    <p>Xuất kết quả dưới dạng Excel hoặc PDF</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Được tin dùng bởi hơn 1.200 giáo viên</h2>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-author">
+                        <img src="https://i.pravatar.cc/60?img=1" alt="Teacher">
+                        <div>
+                            <h4>Cô Nguyễn Thị A</h4>
+                            <p>Giáo viên Toán</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "EduTech AI giúp tôi tiết kiệm rất nhiều thời gian trong việc chuẩn bị và chấm bài. 
+                        Các tính năng rất dễ sử dụng và phù hợp với nhu cầu của giáo viên."
+                    </p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-author">
+                        <img src="https://i.pravatar.cc/60?img=3" alt="Teacher">
+                        <div>
+                            <h4>Thầy Trần Văn B</h4>
+                            <p>Giáo viên Lý</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "Hệ thống chấm điểm tự động rất chính xác và nhanh chóng. 
+                        Tôi có thể tập trung nhiều hơn vào việc giảng dạy thay vì chấm bài."
+                    </p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-author">
+                        <img src="https://i.pravatar.cc/60?img=5" alt="Teacher">
+                        <div>
+                            <h4>Cô Phạm Thị C</h4>
+                            <p>Giáo viên Hóa</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "Giao diện thân thiện, dễ sử dụng. Học sinh của tôi cũng rất thích làm bài kiểm tra 
+                        trực tuyến và nhận kết quả ngay lập tức."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2 class="section-title">Các gói hướng dẫn</h2>
+            
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <h3>Freemium</h3>
+                    <div class="price">
+                        <span class="amount">0đ</span>
+                        <span class="period">/tháng</span>
+                    </div>
+                    <ul class="features-list">
+                        <li>✓ 10 bài kiểm tra/tháng</li>
+                        <li>✓ 50 học sinh</li>
+                        <li>✓ Chấm tự động cơ bản</li>
+                        <li>✗ Xuất báo cáo</li>
+                        <li>✗ Thống kê nâng cao</li>
+                    </ul>
+                    <button class="btn-secondary btn-block">Dùng thử miễn phí</button>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="badge">Phổ biến nhất</div>
+                    <h3>Standard</h3>
+                    <div class="price">
+                        <span class="amount">199k</span>
+                        <span class="period">/tháng</span>
+                    </div>
+                    <ul class="features-list">
+                        <li>✓ Không giới hạn bài kiểm tra</li>
+                        <li>✓ 200 học sinh</li>
+                        <li>✓ Chấm tự động nâng cao</li>
+                        <li>✓ Xuất báo cáo Excel/PDF</li>
+                        <li>✓ Thống kê chi tiết</li>
+                    </ul>
+                    <button class="btn-primary btn-block">Bắt đầu ngay</button>
+                </div>
+
+                <div class="pricing-card">
+                    <h3>Premium</h3>
+                    <div class="price">
+                        <span class="amount">399k</span>
+                        <span class="period">/tháng</span>
+                    </div>
+                    <ul class="features-list">
+                        <li>✓ Tất cả tính năng Standard</li>
+                        <li>✓ Không giới hạn học sinh</li>
+                        <li>✓ AI gợi ý câu hỏi</li>
+                        <li>✓ Hỗ trợ ưu tiên</li>
+                        <li>✓ API tích hợp</li>
+                    </ul>
+                    <button class="btn-secondary btn-block">Liên hệ</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <h2 class="section-title">Câu hỏi thường gặp</h2>
+            
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h3>Làm thế nào để bắt đầu?</h3>
+                    <p>Chỉ cần đăng ký tài khoản miễn phí và bạn có thể bắt đầu tạo bài kiểm tra ngay lập tức.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Có cần kỹ năng kỹ thuật không?</h3>
+                    <p>Không, giao diện của chúng tôi được thiết kế đơn giản và dễ sử dụng cho mọi giáo viên.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Tôi có thể hủy bất cứ lúc nào?</h3>
+                    <p>Có, bạn có thể hủy đăng ký bất cứ lúc nào mà không mất phí.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Dữ liệu có được bảo mật không?</h3>
+                    <p>Chúng tôi cam kết bảo mật tuyệt đối thông tin của giáo viên và học sinh.</p>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <button class="btn-primary btn-lg">Bắt đầu miễn phí</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <div class="logo">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <rect width="32" height="32" rx="8" fill="#2563EB"/>
+                            <path d="M16 8L22 12V20L16 24L10 20V12L16 8Z" fill="white"/>
+                        </svg>
+                        <span class="logo-text">EduTech AI</span>
+                    </div>
+                    <p>Giải pháp đánh giá và chấm điểm tự động cho giáo viên</p>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Sản phẩm</h4>
+                    <ul>
+                        <li><a href="#">Tính năng</a></li>
+                        <li><a href="#">Bảng giá</a></li>
+                        <li><a href="#">Hướng dẫn</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Hỗ trợ</h4>
+                    <ul>
+                        <li><a href="#">Liên hệ</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Tài liệu</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Công ty</h4>
+                    <ul>
+                        <li><a href="#">Về chúng tôi</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Tuyển dụng</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 EduTech AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

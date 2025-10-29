@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giao Diện Tạo Bài Trắc Nghiệm - EduTech AI</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Back Button -->
+        <button class="back-btn" onclick="window.history.back()">
+            <svg width="20" height="20" fill="white" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
+            </svg>
+        </button>
+
+        <div class="sub-container">
+            <!-- Header with Tabs -->
+            <div class="header">
+                <p class="breadcrumb">Chức Năng Tạo Bài Trắc Nghiệm</p>
+                <h1>Giao Diện Tạo Bài Trắc Nghiệm</h1>
+                <p class="subtitle">Tạo, tải lên và đánh giá bài trắc nghiệm với giao diện trực quan và thông minh.</p>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-btn" data-tab="create">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                        <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
+                    </svg>
+                    Tạo mới
+                </button>
+                <button class="tab-btn active" data-tab="upload">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    Upload
+                </button>
+                <button class="tab-btn" data-tab="evaluate">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    Đánh giá chất lượng
+                </button>
+            </div>
+
+            <!-- Content Panels -->
+            <div class="content-wrapper">
+                <!-- Upload Tab Content -->
+                <div class="tab-content active" id="upload-content">
+                    <div class="upload-container">
+                        <div class="upload-box" id="uploadBox">
+                            <svg width="80" height="80" fill="#94A3B8" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <h3>Kéo và thả tệp vào đây hoặc</h3>
+                            <p>Hỗ trợ các định dạng: .docx, .xlsx, .csv, .pdf</p>
+                            <button class="btn-primary upload-btn">Chọn tệp</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Create Tab Content -->
+                <div class="tab-content" id="create-content">
+                    <div class="two-column-layout">
+                        <!-- Left Panel - Form -->
+                        <div class="form-panel">
+                            <div class="form-card">
+                                <h3 class="section-title">Thông tin bài trắc nghiệm</h3>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Tên quiz *</label>
+                                    <input type="text" class="form-input" placeholder="Nhập tên bài trắc nghiệm" value="Kiểm tra chương 1">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Chọn lớp</label>
+                                    <select class="form-select">
+                                        <option>Chọn lớp</option>
+                                        <option selected>Lớp 10A1</option>
+                                        <option>Lớp 11B2</option>
+                                        <option>Lớp 12C1</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Môn học</label>
+                                    <select class="form-select">
+                                        <option>Chọn môn học</option>
+                                        <option selected>Toán</option>
+                                        <option>Vật lý</option>
+                                        <option>Hóa học</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Chủ đề/Bài học</label>
+                                    <input type="text" class="form-input" placeholder="Nhập chủ đề hoặc bài học" value="Hàm số bậc nhất">
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Số câu hỏi (tối đa 50)</label>
+                                        <input type="number" class="form-input" value="10" min="1" max="50">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Thời gian làm bài</label>
+                                        <input type="number" class="form-input" placeholder="30" min="5">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Mức độ khó nhất mắc</label>
+                                    <select class="form-select">
+                                        <option>Dễ</option>
+                                        <option selected>Trung bình</option>
+                                        <option>Khó</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Kiểu câu hỏi</label>
+                                    <select class="form-select">
+                                        <option selected>MCQ</option>
+                                        <option>Đúng/Sai</option>
+                                        <option>Điền vào chỗ trống</option>
+                                        <option>Tự luận ngắn</option>
+                                    </select>
+                                </div>
+
+                                <button class="btn-primary btn-generate">
+                                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/>
+                                    </svg>
+                                    Sinh câu hỏi bằng AI
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Right Panel - Questions Preview -->
+                        <div class="preview-panel">
+                            <div class="preview-header">
+                                <h3>Danh sách câu hỏi</h3>
+                                <div class="preview-actions">
+                                    <button class="btn-icon" title="Xem trước">
+                                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                                            <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </button>
+                                    <button class="btn-icon" title="Tải xuống">
+                                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </button>
+                                    <button class="btn-icon" title="Xóa tất cả">
+                                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="question-list" id="questionList">
+                                <div class="question-item">
+                                    <div class="question-header">
+                                        <span class="question-number">Câu 1:</span>
+                                        <span class="question-type-badge">Chọn hố mẫu 1?</span>
+                                    </div>
+                                    <div class="question-body">
+                                        <div class="question-options">
+                                            <label class="option-label">
+                                                <input type="radio" name="q1" value="A" checked>
+                                                <span class="option-letter">A:</span>
+                                                <span>Đáp án A</span>
+                                            </label>
+                                            <label class="option-label">
+                                                <input type="radio" name="q1" value="B">
+                                                <span class="option-letter">B:</span>
+                                                <span>Đáp án B</span>
+                                            </label>
+                                            <label class="option-label">
+                                                <input type="radio" name="q1" value="C">
+                                                <span class="option-letter">C:</span>
+                                                <span>Đáp án C</span>
+                                            </label>
+                                            <label class="option-label">
+                                                <input type="radio" name="q1" value="D">
+                                                <span class="option-letter">D:</span>
+                                                <span>Đáp án D</span>
+                                            </label>
+                                        </div>
+                                        <div class="question-meta">
+                                            <span class="difficulty-tag">Mức độ</span>
+                                            <span class="meta-value">Dễ</span>
+                                        </div>
+                                    </div>
+                                    <div class="question-actions">
+                                        <button class="btn-text">
+                                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
+                                            </svg>
+                                            Sửa
+                                        </button>
+                                        <button class="btn-text text-danger">
+                                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                            </svg>
+                                            Xóa
+                                        </button>
+                                    </div>
+                                    <div class="expand-icon">▼</div>
+                                </div>
+
+                                <button class="btn-add-question">
+                                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+                                    </svg>
+                                    Thêm câu hỏi
+                                </button>
+                            </div>
+
+                            <div class="preview-footer">
+                                <button class="btn-secondary">Lưu & thoải chỗ bản ghi chất lượng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Evaluate Tab Content -->
+                <div class="tab-content" id="evaluate-content">
+                    <div class="evaluate-container">
+                        <!-- Header -->
+                        <div class="evaluate-header">
+                            <h2>Đánh Giá Tự Tạo Quiz Nghiệm</h2>
+                            <p class="evaluate-subtitle">Phân tích chất lượng, độ khó và đề xuất cải thiện cho bài kiểm tra</p>
+                        </div>
+
+                        <!-- Overview Cards -->
+                        <div class="overview-cards">
+                            <div class="overview-card">
+                                <div class="card-icon blue">
+                                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                                        <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-label">Tổng số câu hỏi</div>
+                                    <div class="card-value">10</div>
+                                </div>
+                            </div>
+
+                            <div class="overview-card">
+                                <div class="card-icon green">
+                                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-label">Câu hỏi hợp lệ</div>
+                                    <div class="card-value">8</div>
+                                </div>
+                            </div>
+
+                            <div class="overview-card">
+                                <div class="card-icon yellow">
+                                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-label">Cần xem xét</div>
+                                    <div class="card-value">2</div>
+                                </div>
+                            </div>
+
+                            <div class="overview-card">
+                                <div class="card-icon purple">
+                                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+                                    </svg>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-label">Điểm chất lượng</div>
+                                    <div class="card-value">8.5/10</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Difficulty Distribution -->
+                        <div class="analysis-section">
+                            <h3 class="section-heading">Phân bố độ khó</h3>
+                            <div class="difficulty-bars">
+                                <div class="difficulty-item">
+                                    <div class="difficulty-label">
+                                        <span class="label-text">Dễ</span>
+                                        <span class="label-count">3 câu (30%)</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill easy" style="width: 30%"></div>
+                                    </div>
+                                </div>
+                                <div class="difficulty-item">
+                                    <div class="difficulty-label">
+                                        <span class="label-text">Trung bình</span>
+                                        <span class="label-count">5 câu (50%)</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill medium" style="width: 50%"></div>
+                                    </div>
+                                </div>
+                                <div class="difficulty-item">
+                                    <div class="difficulty-label">
+                                        <span class="label-text">Khó</span>
+                                        <span class="label-count">2 câu (20%)</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill hard" style="width: 20%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Topic Coverage -->
+                        <div class="analysis-section">
+                            <h3 class="section-heading">Phạm vi kiến thức</h3>
+                            <div class="topic-list">
+                                <div class="topic-item">
+                                    <span class="topic-name">Định nghĩa và khái niệm cơ bản</span>
+                                    <div class="topic-bar">
+                                        <div class="topic-fill" style="width: 40%"></div>
+                                    </div>
+                                    <span class="topic-percent">40%</span>
+                                </div>
+                                <div class="topic-item">
+                                    <span class="topic-name">Công thức và tính toán</span>
+                                    <div class="topic-bar">
+                                        <div class="topic-fill" style="width: 30%"></div>
+                                    </div>
+                                    <span class="topic-percent">30%</span>
+                                </div>
+                                <div class="topic-item">
+                                    <span class="topic-name">Ứng dụng thực tế</span>
+                                    <div class="topic-bar">
+                                        <div class="topic-fill" style="width: 20%"></div>
+                                    </div>
+                                    <span class="topic-percent">20%</span>
+                                </div>
+                                <div class="topic-item">
+                                    <span class="topic-name">Phân tích và so sánh</span>
+                                    <div class="topic-bar">
+                                        <div class="topic-fill" style="width: 10%"></div>
+                                    </div>
+                                    <span class="topic-percent">10%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cognitive Levels -->
+                        <div class="analysis-section">
+                            <h3 class="section-heading">Mức độ nhận thức (Bloom's Taxonomy)</h3>
+                            <div class="cognitive-chart">
+                                <div class="chart-bars">
+                                    <div class="chart-bar" style="height: 45%">
+                                        <div class="bar-fill blue"></div>
+                                        <span class="bar-label">Nhớ</span>
+                                        <span class="bar-value">3</span>
+                                    </div>
+                                    <div class="chart-bar" style="height: 35%">
+                                        <div class="bar-fill blue"></div>
+                                        <span class="bar-label">Hiểu</span>
+                                        <span class="bar-value">2</span>
+                                    </div>
+                                    <div class="chart-bar" style="height: 55%">
+                                        <div class="bar-fill blue"></div>
+                                        <span class="bar-label">Vận dụng</span>
+                                        <span class="bar-value">3</span>
+                                    </div>
+                                    <div class="chart-bar" style="height: 25%">
+                                        <div class="bar-fill blue"></div>
+                                        <span class="bar-label">Phân tích</span>
+                                        <span class="bar-value">1</span>
+                                    </div>
+                                    <div class="chart-bar" style="height: 15%">
+                                        <div class="bar-fill blue"></div>
+                                        <span class="bar-label">Đánh giá</span>
+                                        <span class="bar-value">1</span>
+                                    </div>
+                                    <div class="chart-bar" style="height: 5%">
+                                        <div class="bar-fill blue"></div>
+                                        <span class="bar-label">Sáng tạo</span>
+                                        <span class="bar-value">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Question Quality Table -->
+                        <div class="analysis-section">
+                            <h3 class="section-heading">Chi tiết từng câu hỏi</h3>
+                            <div class="quality-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Câu</th>
+                                            <th>Nội dung</th>
+                                            <th>Độ khó</th>
+                                            <th>Bloom</th>
+                                            <th>Chất lượng</th>
+                                            <th>Trạng thái</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="cell-number">1</td>
+                                            <td class="cell-content">Định nghĩa hàm số bậc nhất</td>
+                                            <td><span class="badge-difficulty easy">Dễ</span></td>
+                                            <td>Nhớ</td>
+                                            <td>
+                                                <div class="quality-score">
+                                                    <div class="score-bar">
+                                                        <div class="score-fill" style="width: 90%"></div>
+                                                    </div>
+                                                    <span>9.0</span>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge-status valid">✓ Hợp lệ</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cell-number">2</td>
+                                            <td class="cell-content">Tính giá trị hàm số tại x = 2</td>
+                                            <td><span class="badge-difficulty medium">TB</span></td>
+                                            <td>Vận dụng</td>
+                                            <td>
+                                                <div class="quality-score">
+                                                    <div class="score-bar">
+                                                        <div class="score-fill" style="width: 85%"></div>
+                                                    </div>
+                                                    <span>8.5</span>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge-status valid">✓ Hợp lệ</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cell-number">3</td>
+                                            <td class="cell-content">Xác định hệ số góc của đường thẳng</td>
+                                            <td><span class="badge-difficulty medium">TB</span></td>
+                                            <td>Hiểu</td>
+                                            <td>
+                                                <div class="quality-score">
+                                                    <div class="score-bar">
+                                                        <div class="score-fill warning" style="width: 65%"></div>
+                                                    </div>
+                                                    <span>6.5</span>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge-status warning">⚠ Cần xem</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cell-number">4</td>
+                                            <td class="cell-content">Vẽ đồ thị hàm số y = 2x + 1</td>
+                                            <td><span class="badge-difficulty hard">Khó</span></td>
+                                            <td>Vận dụng</td>
+                                            <td>
+                                                <div class="quality-score">
+                                                    <div class="score-bar">
+                                                        <div class="score-fill" style="width: 88%"></div>
+                                                    </div>
+                                                    <span>8.8</span>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge-status valid">✓ Hợp lệ</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cell-number">5</td>
+                                            <td class="cell-content">So sánh hai hàm số</td>
+                                            <td><span class="badge-difficulty hard">Khó</span></td>
+                                            <td>Phân tích</td>
+                                            <td>
+                                                <div class="quality-score">
+                                                    <div class="score-bar">
+                                                        <div class="score-fill warning" style="width: 60%"></div>
+                                                    </div>
+                                                    <span>6.0</span>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge-status warning">⚠ Cần xem</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Recommendations -->
+                        <div class="analysis-section">
+                            <h3 class="section-heading">Đề xuất cải thiện</h3>
+                            <div class="recommendations">
+                                <div class="recommendation-card warning">
+                                    <div class="rec-icon">⚠️</div>
+                                    <div class="rec-content">
+                                        <h4>Cân bằng độ khó</h4>
+                                        <p>Bài kiểm tra có 30% câu dễ, 50% trung bình và 20% khó. Đề xuất tăng thêm câu khó để phân loại học sinh giỏi.</p>
+                                    </div>
+                                </div>
+                                <div class="recommendation-card info">
+                                    <div class="rec-icon">💡</div>
+                                    <div class="rec-content">
+                                        <h4>Mở rộng phạm vi kiến thức</h4>
+                                        <p>Các câu hỏi tập trung nhiều vào định nghĩa (40%). Nên bổ sung thêm câu ứng dụng thực tế và phân tích.</p>
+                                    </div>
+                                </div>
+                                <div class="recommendation-card success">
+                                    <div class="rec-icon">✓</div>
+                                    <div class="rec-content">
+                                        <h4>Chất lượng tốt</h4>
+                                        <p>8/10 câu hỏi đạt chất lượng tốt (>7.0 điểm). Bài kiểm tra có cấu trúc rõ ràng và đáp án chính xác.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AI Suggestions -->
+                        <div class="analysis-section">
+                            <h3 class="section-heading">Gợi ý từ AI</h3>
+                            <div class="ai-suggestions">
+                                <div class="suggestion-item">
+                                    <div class="suggestion-header">
+                                        <span class="suggestion-icon">🤖</span>
+                                        <span class="suggestion-title">Câu hỏi được đề xuất thêm</span>
+                                    </div>
+                                    <ul class="suggestion-list">
+                                        <li>Thêm 1-2 câu về ứng dụng hàm số trong thực tế (ví dụ: tính toán chi phí, tốc độ)</li>
+                                        <li>Bổ sung câu hỏi yêu cầu học sinh giải thích lý do chọn đáp án</li>
+                                        <li>Thêm câu hỏi mức độ "Sáng tạo" để học sinh thiết kế bài toán riêng</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="evaluate-actions">
+                            <button class="btn-secondary">
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                </svg>
+                                Xuất báo cáo PDF
+                            </button>
+                            <button class="btn-primary">
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Xác nhận và lưu bài kiểm tra
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quản Lý Lớp Học - Random</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header class="page-head">
+      <button class="back">&larr;</button>
+      <div>
+        <h1>Quản Lý Lớp Học</h1>
+        <p>Công cụ toàn diện giúp quản lý lớp học, theo dõi sự tham gia và phân tích dữ liệu học sinh</p>
+      </div>
+    </header>
+
+    <nav class="tabs">
+      <a class="tab active"><span class="ico">⇄</span> Random Học Sinh</a>
+      <a class="tab" href="/class/detail/student_detail.html"><span class="ico">▣</span> Giao Diện Lớp Học</a>
+      <a class="tab" href="/class/list/class_list.html"><span class="ico">◉</span> Dữ Liệu Học Sinh</a>
+    </nav>
+
+    <section class="grid-3">
+      <div class="card">
+        <h3>Chọn Ngẫu Nhiên Học Sinh</h3>
+        <label class="lbl">Chọn lớp
+          <select class="input">
+            <option>Chọn lớp</option>
+            <option>10A1</option>
+            <option>10A2</option>
+          </select>
+        </label>
+        <label class="chk"><input type="checkbox" checked /> Chỉ học sinh có mặt</label>
+
+        <div class="lbl">Kích thước nhóm: <b>1 học sinh</b></div>
+        <input type="range" min="1" max="5" value="1" class="range" />
+        <div class="scale">
+          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+        </div>
+
+        <button class="btn primary" id="btnRandom">Random 1 học sinh</button>
+        <div class="muted small">Số học sinh hiện có: 0 (đang có mặt)</div>
+      </div>
+
+      <div class="card center">
+        <div class="empty" id="resultBox">
+          <div class="empty-ico">⟲</div>
+          <div class="empty-title">Chưa có kết quả</div>
+          <div class="empty-sub">Chọn một lớp và nhấn nút random để bắt đầu.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Lịch sử random gần đây</h3>
+        <div class="empty small">Chưa có lịch sử random.</div>
+        <ul class="history" id="history"></ul>
+      </div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

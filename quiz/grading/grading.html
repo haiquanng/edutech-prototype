@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chấm Bài Tự Động - EduTech AI</title>
+    <link rel="stylesheet" href="grading.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Back Button -->
+        <button class="back-btn" onclick="window.history.back()">
+            <svg width="20" height="20" fill="white" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
+            </svg>
+        </button>
+
+        <div class="sub-container">
+            <!-- Header -->
+            <div class="header">
+                <h1>Chấm Bài Tự Động</h1>
+                <p class="subtitle">Nhập bài quá và chấm bài trắc nghiệm tự động, tiết kiệm thời gian và an phần lần cho bề</p>
+            </div>
+
+            <!-- Main Content -->
+            <div class="content-wrapper">
+                <!-- Left Panel -->
+                <div class="left-panel">
+                    <!-- Step 1: Choose Class -->
+                    <div class="form-section">
+                        <label class="form-label">Chọn lớp</label>
+                        <select class="form-select" id="classSelect">
+                            <option value="">Chọn lớp</option>
+                            <option value="10A1">Lớp 10A1</option>
+                            <option value="11B2">Lớp 11B2</option>
+                            <option value="12C1">Lớp 12C1</option>
+                        </select>
+                    </div>
+
+                    <!-- Step 2: Choose Exam -->
+                    <div class="form-section">
+                        <label class="form-label">Chọn bài kiểm tra</label>
+                        <select class="form-select" id="examSelect">
+                            <option value="">Chọn bài kiểm tra</option>
+                            <option value="exam1">Kiểm tra Toán - Chương 3</option>
+                            <option value="exam2">Quiz Vật Lý - Điện học</option>
+                            <option value="exam3">Bài tập Hóa học</option>
+                        </select>
+                    </div>
+
+                    <!-- Import Section -->
+                    <div class="form-section">
+                        <label class="form-label">Import đáp án học sinh</label>
+                        <div class="import-box">
+                            <svg width="40" height="40" fill="#94A3B8" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <p class="import-text">Tải lên file .xlsx, .csv của bạn</p>
+                            <p class="import-subtext">Kéo và thả file vào đây hoặc <span class="link-text">nhấn để chọn</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Question Grid -->
+                    <div class="form-section">
+                        <label class="form-label">Đáp án chuẩn</label>
+                        <div class="answer-grid">
+                            <div class="answer-item">
+                                <span class="question-num">1</span>
+                                <span class="answer-letter">A</span>
+                            </div>
+                            <div class="answer-item">
+                                <span class="question-num">2</span>
+                                <span class="answer-letter">B</span>
+                            </div>
+                            <div class="answer-item">
+                                <span class="question-num">3</span>
+                                <span class="answer-letter">C</span>
+                            </div>
+                            <div class="answer-item">
+                                <span class="question-num">4</span>
+                                <span class="answer-letter">A</span>
+                            </div>
+                            <div class="answer-item">
+                                <span class="question-num">5</span>
+                                <span class="answer-letter">D</span>
+                            </div>
+                        </div>
+                        <p class="grid-hint">
+                            <svg width="16" height="16" fill="#2563EB" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                            </svg>
+                            Thêm chi tiết về
+                        </p>
+                    </div>
+
+                    <!-- Student Results Table -->
+                    <div class="form-section">
+                        <div class="table-header">
+                            <label class="form-label">Kết quả học sinh</label>
+                            <div class="search-box">
+                                <svg width="16" height="16" fill="#94A3B8" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/>
+                                </svg>
+                                <input type="text" placeholder="Tìm học sinh" class="search-input">
+                            </div>
+                            <select class="filter-select">
+                                <option>Tất cả</option>
+                                <option>Đã nộp</option>
+                                <option>Chưa nộp</option>
+                            </select>
+                        </div>
+
+                        <table class="results-table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input type="checkbox" class="checkbox">
+                                    </th>
+                                    <th>Học sinh</th>
+                                    <th>MSSV</th>
+                                    <th>Điểm</th>
+                                    <th>Số câu sai</th>
+                                    <th>Thời gian nộp</th>
+                                    <th>Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="checkbox" class="checkbox"></td>
+                                    <td class="student-name">
+                                        <div class="avatar">N</div>
+                                        Nguyễn Văn A
+                                    </td>
+                                    <td>HS001</td>
+                                    <td class="score">8.5</td>
+                                    <td>1/10</td>
+                                    <td>10:25, 15/10/2023</td>
+                                    <td><span class="badge badge-success">Đã nộp</span></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" class="checkbox"></td>
+                                    <td class="student-name">
+                                        <div class="avatar">T</div>
+                                        Trần Thị B
+                                    </td>
+                                    <td>HS012</td>
+                                    <td class="score">7</td>
+                                    <td>3/10</td>
+                                    <td>10:28, 15/10/2023</td>
+                                    <td><span class="badge badge-success">Đã nộp</span></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" class="checkbox"></td>
+                                    <td class="student-name">
+                                        <div class="avatar">L</div>
+                                        Lê Văn C
+                                    </td>
+                                    <td>HS023</td>
+                                    <td class="score">8.5</td>
+                                    <td>1/10</td>
+                                    <td>10:30, 15/10/2023</td>
+                                    <td><span class="badge badge-success">Đã nộp</span></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" class="checkbox"></td>
+                                    <td class="student-name">
+                                        <div class="avatar">P</div>
+                                        Phạm Thị D
+                                    </td>
+                                    <td>HS034</td>
+                                    <td class="score">6.5</td>
+                                    <td>4/10</td>
+                                    <td>10:33, 15/10/2023</td>
+                                    <td><span class="badge badge-success">Đã nộp</span></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" class="checkbox"></td>
+                                    <td class="student-name">
+                                        <div class="avatar">H</div>
+                                        Hoàng Văn E
+                                    </td>
+                                    <td>HS045</td>
+                                    <td class="score">N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td><span class="badge badge-error">Chưa nộp</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="table-footer">
+                            <span class="footer-text">Hiện thị: 5 / 5 học sinh</span>
+                            <div class="action-buttons">
+                                <button class="btn-icon">
+                                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                                        <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                    </svg>
+                                    Lưu bài chấm sau
+                                </button>
+                                <button class="btn-primary">
+                                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                    </svg>
+                                    Xuất Excel/PDF
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel - Analytics -->
+                <div class="right-panel">
+                    <div class="analytics-card">
+                        <h3 class="card-title">Phân tích nhanh</h3>
+                        
+                        <!-- Quick Stats -->
+                        <div class="quick-stats">
+                            <div class="stat-row">
+                                <span class="stat-label">Tổng số bài kiểm tra</span>
+                                <span class="stat-value highlight">48 bài</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">MDP: Lưng, công, tổ, cao đang</span>
+                                <span class="stat-value highlight">công, tồ giải tổng</span>
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <!-- Detailed Stats -->
+                        <div class="detailed-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">Câu 1</span>
+                                <div class="stat-bar">
+                                    <div class="stat-progress" style="width: 85%"></div>
+                                </div>
+                                <span class="stat-percent danger">85% đúng</span>
+                                <span class="stat-detail">Đáp án học sinh (A) không khớp với đáp (ngoài)</span>
+                            </div>
+
+                            <div class="stat-item">
+                                <span class="stat-number">Câu 2</span>
+                                <div class="stat-bar">
+                                    <div class="stat-progress" style="width: 60%"></div>
+                                </div>
+                                <span class="stat-percent danger">60% đúng</span>
+                                <span class="stat-detail">Học sinh phân biệt các phần rõ ràng của việc khi thi</span>
+                            </div>
+
+                            <div class="stat-item">
+                                <span class="stat-number">Câu 3</span>
+                                <div class="stat-bar">
+                                    <div class="stat-progress success" style="width: 90%"></div>
+                                </div>
+                                <span class="stat-percent">90% đúng</span>
+                                <span class="stat-detail">Nguyên tố trả lời riêng, để hỏi nghĩa số rõ ki</span>
+                            </div>
+
+                            <div class="stat-item">
+                                <span class="stat-number">Câu 4</span>
+                                <div class="stat-bar">
+                                    <div class="stat-progress success" style="width: 95%"></div>
+                                </div>
+                                <span class="stat-percent">95% đúng</span>
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <!-- Chart Section -->
+                        <div class="chart-section">
+                            <h4 class="chart-title">Thời kỳ tức thời</h4>
+                            <p class="chart-subtitle">Biểu đồ so sánh mức độ hoàn thành bài kiểm</p>
+                            
+                            <div class="bar-chart">
+                                <div class="bar-group">
+                                    <div class="bar" style="height: 120px;"></div>
+                                    <span class="bar-label">8/23</span>
+                                </div>
+                                <div class="bar-group">
+                                    <div class="bar" style="height: 160px;"></div>
+                                    <span class="bar-label">9/23</span>
+                                </div>
+                                <div class="bar-group">
+                                    <div class="bar" style="height: 220px;"></div>
+                                    <span class="bar-label">10/23</span>
+                                </div>
+                                <div class="bar-group">
+                                    <div class="bar" style="height: 180px;"></div>
+                                    <span class="bar-label">11/23</span>
+                                </div>
+                                <div class="bar-group">
+                                    <div class="bar" style="height: 200px;"></div>
+                                    <span class="bar-label">12/23</span>
+                                </div>
+                            </div>
+                            <p class="chart-note">Dữ liệu sẽ cập nhật theo thời gian thực</p>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <!-- Recommendations -->
+                        <div class="recommendations">
+                            <h4 class="rec-title">Các mục cải tiến học sinh</h4>
+                            <div class="rec-item warning">
+                                <svg width="16" height="16" fill="#F59E0B" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                </svg>
+                                <div class="rec-content">
+                                    <strong>Câu 7-10 giải đúng: 65%</strong>
+                                    <p>Ưu điểm về lý thuyết và phương pháp phát hiện các câu mỗi điểm phải mất nói cao bài tập giúp học sinh hiểu rõ lời này.</p>
+                                </div>
+                            </div>
+
+                            <div class="rec-item info">
+                                <div class="rec-content">
+                                    <strong>Trọng số: Các mục phải đảm mục như cách làm cho điều này</strong>
+                                    <p>Ôn tập cơ bản câu để tự trọng vật liệu điểm rất học sinh tương tác sẽ dựa nên viện tài liệu nhau giai</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="grading.js"></script>
+</body>
+</html>
