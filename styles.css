@@ -871,3 +871,354 @@ a {
     background: var(--primary-light);
     color: var(--primary);
 }
+
+
+/* instruction styles */
+/* Instructions Panel Styles */
+.instructions-panel {
+    position: fixed;
+    right: -450px;
+    top: 0;
+    width: 420px;
+    height: 100vh;
+    background: white;
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.instructions-panel.active {
+    right: 0;
+}
+
+.instructions-header {
+    padding: 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.instructions-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.instructions-close {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: var(--background-alt);
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: all 0.2s;
+}
+
+.instructions-close:hover {
+    background: var(--border);
+    color: var(--text-primary);
+}
+
+.instructions-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+}
+
+.instructions-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.instructions-steps {
+    display: flex;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.instructions-video {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.instructions-video svg {
+    color: var(--primary);
+}
+
+/* Video Thumbnail */
+.video-thumbnail {
+    width: 100%;
+    height: 200px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.video-thumbnail:hover {
+    transform: scale(1.02);
+}
+
+.video-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.video-play-button svg {
+    width: 24px;
+    height: 24px;
+    color: var(--primary);
+    margin-left: 4px;
+}
+
+/* Instruction Steps */
+.instruction-step {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: var(--background-alt);
+    border-radius: 12px;
+    transition: all 0.3s;
+}
+
+.instruction-step:hover {
+    background: #E8F0FE;
+    transform: translateX(-4px);
+}
+
+.step-number {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+}
+
+.step-description {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* Suggestion Box */
+.suggestion-box {
+    background: #FEF3C7;
+    padding: 16px;
+    border-radius: 8px;
+    border-left: 4px solid #F59E0B;
+    margin-top: 24px;
+}
+
+.suggestion-box p {
+    font-size: 14px;
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.suggestion-box strong {
+    font-weight: 600;
+}
+
+/* Instructions Footer */
+.instructions-footer {
+    padding: 20px 24px;
+    border-top: 1px solid var(--border);
+    background: white;
+}
+
+.instructions-cta {
+    width: 100%;
+    padding: 14px 24px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.instructions-cta:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.instructions-secondary {
+    margin-top: 12px;
+    text-align: center;
+}
+
+.instructions-secondary a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.instructions-secondary a:hover {
+    color: var(--primary);
+}
+
+/* Help Button on Sidebar */
+.help-button {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: var(--primary-light);
+    color: var(--primary);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    font-size: 16px;
+    font-weight: 700;
+    margin-left: auto;
+}
+
+.help-button:hover {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.1);
+}
+
+.menu-item-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.menu-item-wrapper a {
+    flex: 1;
+}
+
+/* Overlay */
+.instructions-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+}
+
+.instructions-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Animations */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .instructions-panel {
+        width: 100%;
+        right: -100%;
+    }
+}
+
+/* Scrollbar Styling */
+.instructions-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.instructions-body::-webkit-scrollbar-track {
+    background: var(--background-alt);
+}
+
+.instructions-body::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+.instructions-body::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary);
+}
