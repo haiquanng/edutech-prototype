@@ -559,7 +559,7 @@ a {
 }
 
 .sidebar {
-    width: 280px;
+    width: 320px;
     background: white;
     border-right: 1px solid var(--border);
     padding: 24px;
@@ -642,7 +642,7 @@ a {
 /* Main Content Area */
 .main-content {
     flex: 1;
-    margin-left: 280px;
+    margin-left: 320px;
     padding: 32px;
     background: var(--background-alt);
 }
